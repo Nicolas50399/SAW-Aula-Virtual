@@ -1,4 +1,4 @@
-package frba.utn.edu.ar.aula_virtual;
+package frba.utn.edu.ar.aula_virtual.entities;
 
 import jakarta.persistence.*;
 import java.util.HashSet;

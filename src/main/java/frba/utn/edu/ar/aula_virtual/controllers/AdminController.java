@@ -1,6 +1,6 @@
 package frba.utn.edu.ar.aula_virtual.controllers;
 
-import frba.utn.edu.ar.aula_virtual.Usuario;
+import frba.utn.edu.ar.aula_virtual.entities.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
