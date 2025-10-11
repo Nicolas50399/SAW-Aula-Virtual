@@ -2,33 +2,42 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Mis Cursos</title>
+    <title th:text="${titulo}">Mis Cursos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1 th:text="${titulo}">Título de la Página</h1>
+<div class="container">
+    <h1 th:text="${titulo}">Mis Cursos</h1>
 
-<div th:if="${not #lists.isEmpty(cursos)}">
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Nombre del Curso</th>
-            <th>Profesor</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="curso : ${cursos}">
-            <td th:text="${curso.nombre}">Programación I</td>
-            <td th:text="${curso.profesor.username}">profe.garcia</td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:if="${not #lists.isEmpty(cursos)}">
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre del Curso</th>
+                <th>Profesor</th>
+                <th>Acceso</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="curso : ${cursos}">
+                <td th:text="${curso.nombre}">Programación I</td>
+                <td th:text="${curso.profesor.username}">profe.garcia</td>
+                <td><a th:href="@{'/cursos/' + ${curso.id}}" class="btn btn-primary">Ir al curso</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${#lists.isEmpty(cursos)}" class="no-cursos">
+        <p>No tienes cursos asignados en este momento.</p>
+    </div>
+
+    <a th:href="@{/dashboard}" class="btn" style="margin-top:2rem;">Volver al Dashboard</a>
+
+    <p style="margin-top: 2rem; font-size: 0.85rem; color: #555;">
+        © Aula Virtual UTN - 2025 - SAW
+    </p>
+
 </div>
-
-<div th:if="${#lists.isEmpty(cursos)}">
-    <p>No tienes cursos asignados en este momento.</p>
-</div>
-
-<br>
-<a th:href="@{/dashboard}">Volver al Dashboard</a>
 </body>
 </html>

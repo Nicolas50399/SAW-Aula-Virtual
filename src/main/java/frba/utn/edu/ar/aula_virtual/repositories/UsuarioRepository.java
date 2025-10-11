@@ -1,5 +1,6 @@
-package frba.utn.edu.ar.aula_virtual;
+package frba.utn.edu.ar.aula_virtual.repositories;
 
+import frba.utn.edu.ar.aula_virtual.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
