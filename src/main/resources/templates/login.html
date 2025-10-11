@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Aula Virtual</title>
+</head>
+<body>
+<h1>Iniciar Sesión</h1>
+<div th:if="${param.error}" style="color: red;">
+    Usuario o contraseña incorrectos.
+</div>
+<form th:action="@{/login}" method="post">
+    <div>
+        <label>Usuario:</label>
+        <input type="text" name="username"/>
+    </div>
+    <div>
+        <label>Contraseña:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <button type="submit">Entrar</button>
+    </div>
+</form>
+</body>
+</html>

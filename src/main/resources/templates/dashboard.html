@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Aula Virtual</title>
+</head>
+<body>
+<h1>Bienvenido al Aula Virtual, <span th:text="${username}"></span>!</h1>
+<p>Este es tu panel principal.</p>
+
+<nav>
+    <ul>
+        <li><a th:href="@{/cursos/mis-cursos}">Ver Mis Cursos</a></li>
+
+        <li th:if="${role == 'ADMIN'}">
+            <a th:href="@{/admin/panel}" style="color:red; font-weight: bold;">Panel de Administración</a>
+        </li>
+
+    </ul>
+</nav>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Cerrar Sesión</button>
+</form>
+</body>
+</html>

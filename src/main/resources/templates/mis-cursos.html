@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Cursos</title>
+</head>
+<body>
+<h1 th:text="${titulo}">Título de la Página</h1>
+
+<div th:if="${not #lists.isEmpty(cursos)}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Nombre del Curso</th>
+            <th>Profesor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="curso : ${cursos}">
+            <td th:text="${curso.nombre}">Programación I</td>
+            <td th:text="${curso.profesor.username}">profe.garcia</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${#lists.isEmpty(cursos)}">
+    <p>No tienes cursos asignados en este momento.</p>
+</div>
+
+<br>
+<a th:href="@{/dashboard}">Volver al Dashboard</a>
+</body>
+</html>
