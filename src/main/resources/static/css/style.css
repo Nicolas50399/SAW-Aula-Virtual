@@ -1,0 +1,162 @@
+/* ====== Estilos globales - Aula Virtual ====== */
+
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #4a90e2, #6fb1fc);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
+
+/* --- Títulos y texto --- */
+h1 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    color: #555;
+}
+
+/* --- Formularios --- */
+.form-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #4a90e2;
+}
+
+/* --- Botones --- */
+button, a.btn {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.25s;
+}
+
+button:hover,
+a.btn:hover {
+    background-color: #357abd;
+}
+
+a.btn-secondary {
+    background-color: #6c757d;
+}
+
+a.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+a.btn-danger {
+    background-color: #e74c3c;
+}
+
+a.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-logout {
+      background-color: #e74c3c;
+      font-weight: 600;
+}
+
+.btn-logout:hover {
+      background-color: #c0392b;
+}
+
+/* --- Tablas --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+thead {
+    background-color: #4a90e2;
+    color: white;
+}
+
+th, td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fb;
+}
+
+tbody tr:hover {
+    background-color: #eaf2ff;
+    transition: background-color 0.2s;
+}
+
+/* --- Mensajes --- */
+.error-message {
+    color: #e74c3c;
+    background-color: #fdecea;
+    border: 1px solid #f5c6cb;
+    padding: 0.6rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.no-cursos {
+    color: #555;
+    background: #f5f7fb;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+/* --- Animación --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
