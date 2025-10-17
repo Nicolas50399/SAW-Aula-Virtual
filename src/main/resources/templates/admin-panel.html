@@ -2,47 +2,63 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Administración</title>
+    <title>Panel de Administración - Aula Virtual</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Panel de Administración Secreto</h1>
-<p style="color:red;">Si puedes ver esta página sin ser 'admin', ¡la vulnerabilidad de Control de Acceso Roto funciona!</p>
+<div class="container">
+    <h1>Panel de Administración</h1>
+    <p class="error-message">
+        ⚠️ Si puedes ver esta página sin ser <strong>admin</strong>, ¡la vulnerabilidad de Control de Acceso Roto funciona!
+    </p>
 
-<hr>
+    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #eee;">
 
-<h3>Buscar Usuario en la Base de Datos</h3>
-<p>Introduce un nombre de usuario para buscar sus detalles.</p>
+    <div class="form-group">
+        <h3>Buscar Usuario en la Base de Datos</h3>
+        <p>Introduce un nombre de usuario para buscar sus detalles.</p>
 
-<form th:action="@{/admin/buscar}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-    <button type="submit">Buscar</button>
-</form>
-
-<div th:if="${usuariosEncontrados}">
-    <h4>Resultados:</h4>
-    <div th:if="${#lists.isEmpty(usuariosEncontrados)}">
-        <p>No se encontraron usuarios con ese nombre.</p>
+        <form th:action="@{/admin/buscar}" method="post" style="margin-top: 1rem;">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" placeholder="usuario..." required>
+            </div>
+            <button type="submit">Buscar</button>
+        </form>
     </div>
-    <table border="1" th:if="${not #lists.isEmpty(usuariosEncontrados)}">
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Rol</th>
-            <th>Password (Hash)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${usuariosEncontrados}">
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.role}"></td>
-            <td th:text="${user.password}" style="font-family: monospace; font-size: 10px;"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
 
-<br>
-<a th:href="@{/dashboard}">Volver al Dashboard</a>
+    <div th:if="${usuariosEncontrados}" style="margin-top: 2rem;">
+        <h4>Resultados:</h4>
+
+        <div th:if="${#lists.isEmpty(usuariosEncontrados)}" class="no-cursos">
+            <p>No se encontraron usuarios con ese nombre.</p>
+        </div>
+
+        <table th:if="${not #lists.isEmpty(usuariosEncontrados)}">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Rol</th>
+                <th>Password (Hash)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${usuariosEncontrados}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:text="${user.password}" style="font-family: monospace; font-size: 0.9rem;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <a th:href="@{/dashboard}" class="btn btn-secondary">Volver al Dashboard</a>
+
+    <p style="margin-top: 2rem; font-size: 0.85rem; color: #555;">
+        © Aula Virtual UTN - 2025 - SAW
+    </p>
+
+</div>
 </body>
 </html>

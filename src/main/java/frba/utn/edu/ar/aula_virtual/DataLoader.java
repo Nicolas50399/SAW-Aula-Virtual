@@ -1,5 +1,9 @@
 package frba.utn.edu.ar.aula_virtual;
 
+import frba.utn.edu.ar.aula_virtual.entities.Curso;
+import frba.utn.edu.ar.aula_virtual.entities.Usuario;
+import frba.utn.edu.ar.aula_virtual.repositories.CursoRepository;
+import frba.utn.edu.ar.aula_virtual.repositories.UsuarioRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

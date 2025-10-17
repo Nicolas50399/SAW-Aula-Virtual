@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Curso</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Estilo extra para cards y secciones */
+        .course-info, .course-section {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .course-info p {
+            margin: 0.5rem 0;
+        }
+
+        .card {
+            background-color: #f5f7fb;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #003366;
+        }
+
+        .card p {
+            margin: 0;
+            color: #555;
+        }
+
+        .materials-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .materials-list a.btn {
+            flex: 1 1 calc(50% - 0.8rem);
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .materials-list a.btn {
+                flex: 1 1 100%;
+            }
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Programación I</h1> <!-- HARDCODEADO TODO: Revisar -->
+
+    <!-- Información general del curso -->
+    <div class="course-info card">
+        <p><strong>Profesor:</strong> Juan García</p>
+        <p><strong>Descripción:</strong> Curso introductorio a la programación en Java. Se enseñan variables, estructuras de control, POO y buenas prácticas.</p>
+        <p><strong>Duración:</strong> 4 semanas</p>
+        <p><strong>Modalidad:</strong> Presencial / Online</p>
+    </div>
+
+    <!-- Temas del curso -->
+    <div class="course-section">
+        <h3>Temas del curso</h3>
+        <div class="card">
+            <ul>
+                <li><strong>Clase 1:</strong> Introducción a Java - <em>2025-10-01</em></li>
+                <li><strong>Clase 2:</strong> Variables y Tipos de Datos - <em>2025-10-03</em></li>
+                <li><strong>Clase 3:</strong> Estructuras de Control - <em>2025-10-05</em></li>
+                <li><strong>Clase 4:</strong> Programación Orientada a Objetos - <em>2025-10-08</em></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Materiales -->
+    <div class="course-section">
+        <h3>Materiales del curso</h3>
+        <div class="materials-list">
+            <a href="#" class="btn btn-secondary">Clase 1 - Presentación PDF</a>
+            <a href="#" class="btn btn-secondary">Clase 2 - Ejercicios Java</a>
+            <a href="#" class="btn btn-secondary">Clase 3 - Código de ejemplo</a>
+            <a href="#" class="btn btn-secondary">Clase 4 - Proyecto final</a>
+        </div>
+    </div>
+
+    <br>
+    <a th:href="@{/cursos/mis-cursos}" class="btn">Volver a Mis Cursos</a>
+
+    <p style="margin-top: 2rem; font-size: 0.85rem; color: #555;">
+        © Aula Virtual UTN - 2025 - SAW
+    </p>
+
+</div>
+</body>
+</html>

@@ -1,4 +1,6 @@
-package frba.utn.edu.ar.aula_virtual;
+package frba.utn.edu.ar.aula_virtual.services;
+
+import frba.utn.edu.ar.aula_virtual.entities.Curso;
 
 import java.util.Optional;
 import java.util.Set;

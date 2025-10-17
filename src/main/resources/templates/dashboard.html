@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard - Aula Virtual</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Bienvenido al Aula Virtual, <span th:text="${username}"></span>!</h1>
-<p>Este es tu panel principal.</p>
+<div class="container">
+    <h1>Bienvenido al Aula Virtual, <span th:text="${username}">Usuario</span>!</h1>
+    <p>Este es tu panel principal.</p>
 
-<nav>
-    <ul>
-        <li><a th:href="@{/cursos/mis-cursos}">Ver Mis Cursos</a></li>
+    <nav>
+        <ul style="list-style:none; padding:0;">
+            <li><a th:href="@{/cursos/mis-cursos}" class="btn">Ver Mis Cursos</a></li>
 
-        <li th:if="${role == 'ADMIN'}">
-            <a th:href="@{/admin/panel}" style="color:red; font-weight: bold;">Panel de Administración</a>
-        </li>
+            <li th:if="${role == 'ADMIN'}" style="margin-top:1rem;">
+                <a th:href="@{/admin/panel}" class="btn btn-danger">Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
 
-    </ul>
-</nav>
+    <form th:action="@{/logout}" method="post" style="margin-top:1.5rem;">
+        <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
+    </form>
 
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Cerrar Sesión</button>
-</form>
+    <p style="margin-top: 2rem; font-size: 0.85rem; color: #555;">
+        © Aula Virtual UTN - 2025 - SAW
+    </p>
+
+</div>
 </body>
 </html>

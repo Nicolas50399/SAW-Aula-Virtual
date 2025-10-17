@@ -1,10 +1,13 @@
-package frba.utn.edu.ar.aula_virtual;
+package frba.utn.edu.ar.aula_virtual.services;
 
+import frba.utn.edu.ar.aula_virtual.entities.Curso;
+import frba.utn.edu.ar.aula_virtual.entities.Usuario;
+import frba.utn.edu.ar.aula_virtual.repositories.CursoRepository;
+import frba.utn.edu.ar.aula_virtual.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 

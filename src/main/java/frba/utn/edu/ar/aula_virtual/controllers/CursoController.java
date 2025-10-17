@@ -1,7 +1,7 @@
 package frba.utn.edu.ar.aula_virtual.controllers;
 
-import frba.utn.edu.ar.aula_virtual.Curso;
-import frba.utn.edu.ar.aula_virtual.CursoService;
+import frba.utn.edu.ar.aula_virtual.entities.Curso;
+import frba.utn.edu.ar.aula_virtual.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -50,4 +50,12 @@ public class CursoController {
 
         return "mis-cursos";
     }
+
+    @GetMapping("{id}")
+    public String verCurso() {
+        //TODO: Hacer bien?
+        return "curso-detalle";
+    }
+
+
 }

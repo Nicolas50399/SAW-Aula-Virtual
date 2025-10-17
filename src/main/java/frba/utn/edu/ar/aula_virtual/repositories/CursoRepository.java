@@ -1,5 +1,6 @@
-package frba.utn.edu.ar.aula_virtual;
+package frba.utn.edu.ar.aula_virtual.repositories;
 
+import frba.utn.edu.ar.aula_virtual.entities.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query; // Importa esta clase
 import org.springframework.data.repository.query.Param; // Y esta
