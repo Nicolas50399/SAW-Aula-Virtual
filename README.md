@@ -27,5 +27,5 @@ El usuario (no admin) autenticado obtenido anteriormente puede modificar el cód
 ## Vulnerabilidad 4: SQL Injections
 Se descubre que en los formularios ocultos no se valida/sanea la entrada, permitiendo inyecciones SQL que permiten el acceso a la BD relacional utilizada en producción.
 
-## Lines de tiempo de vulnerabilidades
-./images/vulnerabilidades.jpeg
+## Linea de tiempo de vulnerabilidades
+![vulnerabilidades](./images/vulnerabilidades.png)
