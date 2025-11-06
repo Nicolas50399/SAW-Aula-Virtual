@@ -2,12 +2,14 @@ package frba.utn.edu.ar.aula_virtual.controllers;
 
 import frba.utn.edu.ar.aula_virtual.entities.Curso;
 import frba.utn.edu.ar.aula_virtual.services.CursoService;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Set;
@@ -51,10 +53,19 @@ public class CursoController {
         return "mis-cursos";
     }
 
-    @GetMapping("{id}")
-    public String verCurso() {
-        //TODO: Hacer bien?
-        return "curso-detalle";
+    @GetMapping("{nombre}")
+    public String verCurso(@PathVariable("nombre") String nombreCurso,
+                           Model model,
+                           Authentication authentication)
+    {
+        String rol = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElse("");
+
+        model.addAttribute("role", rol);
+
+        return "curso-detalle-" + nombreCurso;
     }
 
 

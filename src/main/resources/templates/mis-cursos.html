@@ -22,7 +22,7 @@
             <tr th:each="curso : ${cursos}">
                 <td th:text="${curso.nombre}">Programación I</td>
                 <td th:text="${curso.profesor.username}">profe.garcia</td>
-                <td><a th:href="@{'/cursos/' + ${curso.id}}" class="btn btn-primary">Ir al curso</a></td>
+                <td><a th:href="@{'/cursos/' + ${curso.nombre}}" class="btn btn-primary">Ir al curso</a></td>
             </tr>
             </tbody>
         </table>

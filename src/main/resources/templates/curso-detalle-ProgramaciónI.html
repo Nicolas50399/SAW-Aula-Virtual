@@ -59,7 +59,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Programación I</h1> <!-- HARDCODEADO TODO: Revisar -->
+    <h1>Programación I</h1>
 
     <!-- Información general del curso -->
     <div class="course-info card">
@@ -91,6 +91,22 @@
             <a href="#" class="btn btn-secondary">Clase 3 - Código de ejemplo</a>
             <a href="#" class="btn btn-secondary">Clase 4 - Proyecto final</a>
         </div>
+    </div>
+
+    <!-- Detalle de alumnos (solo profesores) -->
+    <div class="students-details" th:attr="hidden=${role != 'PROFESOR'}">
+        <h3>Detalle de alumnos</h3>
+
+        <!-- Buscador -->
+        <div class="card" style="margin-bottom:1rem;">
+            <form id="student-search-form" onsubmit="return false;">
+                <label for="student-name"><strong>Buscar alumno por nombre:</strong></label>
+                <input id="student-name" name="nombre" type="text" placeholder="Ej: Juan Pérez" style="margin-left:0.5rem; padding:0.4rem;">
+                <button id="student-search-btn" class="btn" style="margin-left:0.5rem; padding:0.4rem 0.7rem;">Buscar</button>
+                <span id="search-status" style="margin-left:0.8rem; color:#555;"></span>
+            </form>
+        </div>
+
     </div>
 
     <br>

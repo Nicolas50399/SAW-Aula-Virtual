@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder; // Importante añadir esta línea
 import org.springframework.security.crypto.password.PasswordEncoder; // Y esta
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -27,12 +26,10 @@ public class SecurityConfig {
         return users;
     }
 
-    // --- NUEVO MÉTODO AÑADIDO ---
-    // Definimos un PasswordEncoder que no hace nada.
-    // Esto es INSEGURO para producción, pero necesario para nuestra vulnerabilidad de hash manual.
+    // Configuramos el PasswordEncoder para que use SHA-256 con salt
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new CustomPasswordEncoder();
     }
     // -----------------------------
 

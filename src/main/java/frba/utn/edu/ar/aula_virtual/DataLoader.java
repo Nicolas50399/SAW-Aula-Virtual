@@ -4,15 +4,14 @@ import frba.utn.edu.ar.aula_virtual.entities.Curso;
 import frba.utn.edu.ar.aula_virtual.entities.Usuario;
 import frba.utn.edu.ar.aula_virtual.repositories.CursoRepository;
 import frba.utn.edu.ar.aula_virtual.repositories.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -21,7 +20,7 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired // Agregamos el repositorio de cursos
+    @Autowired
     private CursoRepository cursoRepository;
 
     // Inyectamos los valores del application.properties
@@ -39,24 +38,24 @@ public class DataLoader implements CommandLineRunner {
         // Administrador
         Usuario adminUser = new Usuario();
         adminUser.setUsername("admin");
-        adminUser.setPassword("admin123"); // Contraseña insegura
+        adminUser.setPassword(passwordEncode("admin123"));
         adminUser.setRole("ADMIN");
 
         // Profesor
         Usuario profesorUser = new Usuario();
         profesorUser.setUsername("profe.garcia");
-        profesorUser.setPassword(hashPassword("profesor123")); // Contraseña insegura
+        profesorUser.setPassword(passwordEncode("profesor123"));
         profesorUser.setRole("PROFESOR");
 
         // Estudiantes
         Usuario estudiante1User = new Usuario();
         estudiante1User.setUsername("juan.perez");
-        estudiante1User.setPassword("juan123"); // Contraseña insegura
+        estudiante1User.setPassword(passwordEncode("juan123"));
         estudiante1User.setRole("ESTUDIANTE");
 
         Usuario estudiante2User = new Usuario();
         estudiante2User.setUsername("ana.lopez");
-        estudiante2User.setPassword(hashPassword("ana123")); // Contraseña insegura
+        estudiante2User.setPassword(passwordEncode("ana123"));
         estudiante2User.setRole("ESTUDIANTE");
 
         // Guardamos todos los usuarios en la BD
@@ -66,16 +65,16 @@ public class DataLoader implements CommandLineRunner {
         // --- 2. CREACIÓN DE CURSOS Y ASIGNACIÓN DE ROLES ---
 
         Curso cursoProgramacion = new Curso();
-        cursoProgramacion.setNombre("Programación I");
+        cursoProgramacion.setNombre("ProgramaciónI");
 
-// Asignamos el profesor al curso
+        // Asignamos el profesor al curso
         cursoProgramacion.setProfesor(profesorUser);
 
-// Inscribimos al estudiante al curso (estableciendo la relación en AMBAS entidades)
-        cursoProgramacion.getEstudiantes().add(estudiante1User);             // Lado del Curso
+        // Inscribimos al estudiante al curso (estableciendo la relación en AMBAS entidades)
+        cursoProgramacion.getEstudiantes().add(estudiante1User);      // Lado del Curso
         estudiante1User.getCursosInscriptos().add(cursoProgramacion); // Lado del Usuario (ESTA ES LA LÍNEA NUEVA Y CLAVE)
 
-// Guardamos el curso (JPA se encarga de las relaciones)
+        // Guardamos el curso (JPA se encarga de las relaciones)
         cursoRepository.save(cursoProgramacion);
 
 
@@ -93,15 +92,29 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("----------------------------------------------------");
     }
 
-    /**
-     * Método helper para hashear contraseñas usando el mecanismo vulnerable.
-     * @param password Contraseña en texto plano.
-     * @return Contraseña hasheada en Base64.
-     */
-    private String hashPassword(String password) throws Exception {
-        MessageDigest md = MessageDigest.getInstance(HASH_ALGORITHM);
-        md.update(SALT.getBytes(StandardCharsets.UTF_8));
-        byte[] hashedPasswordBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-        return Base64.getEncoder().encodeToString(hashedPasswordBytes);
+    //Helper, hace lo mismo que CustomPasswordEncoder
+    public String passwordEncode(String rawPassword){
+        try {
+            System.out.println("Iniciando hash de contraseña con: " + HASH_ALGORITHM + " y salt: " + SALT);
+
+            MessageDigest md = MessageDigest.getInstance(HASH_ALGORITHM);
+            md.update(SALT.getBytes(StandardCharsets.UTF_8)); // salt antes de la password
+            byte[] hashed = md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
+
+            StringBuilder sb = new StringBuilder(hashed.length * 2);
+            for (byte b : hashed) {
+                sb.append(String.format("%02x", b));
+            }
+
+            // Debug output
+            System.out.println(" - Contraseña plana: " + rawPassword);
+            System.out.println(" - Contraseña hasheada: " + sb);
+
+            return sb.toString();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }
