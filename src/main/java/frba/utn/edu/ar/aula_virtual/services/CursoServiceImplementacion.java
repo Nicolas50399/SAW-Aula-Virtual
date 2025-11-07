@@ -43,4 +43,11 @@ public class CursoServiceImplementacion implements CursoService {
     public Optional<Curso> findCursoById(Long id) {
         return cursoRepository.findById(id);
     }
+
+    @Override
+    @Transactional
+    public Usuario getUserByName(String username) {
+        return usuarioRepository.findById(username).orElse(null);
+    }
+
 }

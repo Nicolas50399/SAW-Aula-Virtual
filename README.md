@@ -9,10 +9,10 @@ Roles que intervienen:
 ## Vulnerailidad 1: Identification & Authentication failures
 La aplicación expone accidentalmente un endpoint de debugging sin autenticación (/actuator/env) que devuelve variables de entorno bajo el contenido de un archivo de configuración (application.properties).
 
-En ese archivo aparecen, entre otros, propiedades de configuración criptográfica (algoritmo de hash, salt utilizado) y rutas/URIs a backups de usuarios.
+En ese archivo aparecen, entre otros, propiedades de configuración criptográfica (algoritmo de hash, salt utilizado) y rutas/URIs a backups de usuarios de estudiantes.
 
  * http://localhost:8080/actuator/env
- * TODO Ver URI Backup Usuarios
+ * TODO: Ver URI Backup Usuarios
 
 ## Vulnerabilidad 2: Cryptographic Failures
 Usando la información divulgada se accede (lectura) a un backup de la base de datos de usuarios y se recuperan usuarios y contraseñas hasheadas.

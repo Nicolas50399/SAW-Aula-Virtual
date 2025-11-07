@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle de Curso</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.png}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
         /* Estilo extra para cards y secciones */
@@ -100,12 +101,52 @@
         <!-- Buscador -->
         <div class="card" style="margin-bottom:1rem;">
             <form id="student-search-form" onsubmit="return false;">
-                <label for="student-name"><strong>Buscar alumno por nombre:</strong></label>
-                <input id="student-name" name="nombre" type="text" placeholder="Ej: Juan Pérez" style="margin-left:0.5rem; padding:0.4rem;">
+                <label for="student-name"><strong>Buscar alumno por usuario:</strong></label>
+                <input id="student-name" name="nombre" type="text" placeholder="Ej: juan.perez" style="margin-left:0.5rem; padding:0.4rem;">
                 <button id="student-search-btn" class="btn" style="margin-left:0.5rem; padding:0.4rem 0.7rem;">Buscar</button>
                 <span id="search-status" style="margin-left:0.8rem; color:#555;"></span>
             </form>
+
+            <script>
+                document.getElementById("student-search-btn").addEventListener("click", async () => {
+                    const nombre = document.getElementById("student-name").value.trim();
+                    const status = document.getElementById("search-status");
+                    const resultDiv = document.getElementById("student-result");
+
+                    if (!nombre) {
+                        status.textContent = "Por favor, ingrese un nombre.";
+                        resultDiv.style.display = "none";
+                        return;
+                    }
+
+                    status.textContent = "Buscando...";
+                    resultDiv.style.display = "none";
+
+                    try {
+                        const response = await fetch(`/cursos/alumnos/${encodeURIComponent(nombre)}`);
+                        if (!response.ok) {
+                            throw new Error("No se encontró el alumno");
+                        }
+
+                        const data = await response.json();
+                        const usuario = data.usuario;
+
+                        resultDiv.innerHTML = `
+                            <p><strong>${alumno.usuario}</strong></p>
+                            <p><strong>${alumno.rol}</strong></p>
+                        `;
+                        resultDiv.style.display = "block";
+                        status.textContent = "";
+                    } catch (error) {
+                        status.textContent = "Alumno no encontrado.";
+                        resultDiv.style.display = "none";
+                    }
+                });
+            </script>
         </div>
+
+        <!-- Resultado -->
+        <div id="student-result" class="card" style="display:none; margin-top:1rem;"></div>
 
     </div>
 
