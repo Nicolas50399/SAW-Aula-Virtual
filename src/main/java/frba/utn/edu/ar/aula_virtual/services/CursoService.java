@@ -28,7 +28,4 @@ public interface CursoService {
      * @return Un Optional que puede contener el Curso si se encuentra.
      */
     Optional<Curso> findCursoById(Long id);
-
-
-    Usuario getUserByName(String username);
 }

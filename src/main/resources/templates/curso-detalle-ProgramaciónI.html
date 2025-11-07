@@ -129,11 +129,10 @@
                         }
 
                         const data = await response.json();
-                        const usuario = data.usuario;
+                        const alumno = data.alumno;
 
                         resultDiv.innerHTML = `
-                            <p><strong>${alumno.usuario}</strong></p>
-                            <p><strong>${alumno.rol}</strong></p>
+                            <p><strong>${alumno}</strong></p>
                         `;
                         resultDiv.style.display = "block";
                         status.textContent = "";
@@ -143,6 +142,7 @@
                     }
                 });
             </script>
+
         </div>
 
         <!-- Resultado -->

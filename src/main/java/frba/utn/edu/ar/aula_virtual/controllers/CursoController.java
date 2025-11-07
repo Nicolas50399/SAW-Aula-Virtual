@@ -1,9 +1,8 @@
 package frba.utn.edu.ar.aula_virtual.controllers;
 
 import frba.utn.edu.ar.aula_virtual.entities.Curso;
-import frba.utn.edu.ar.aula_virtual.entities.Usuario;
 import frba.utn.edu.ar.aula_virtual.services.CursoService;
-import org.hibernate.annotations.Parameter;
+import frba.utn.edu.ar.aula_virtual.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -27,6 +26,9 @@ public class CursoController {
 
     @Autowired
     private CursoService cursoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/mis-cursos")
     public String mostrarMisCursos(Model model, Authentication authentication) {
@@ -81,20 +83,28 @@ public class CursoController {
     {
         System.out.println("--- DEBUG: Buscando usuario con nombre: " + nombre);
 
-        Usuario usuario = cursoService.getUserByName(nombre);
+        Map<String, Object> alumno = new HashMap<>();
 
-        if (isNull(usuario)) {
-            System.out.println("--- DEBUG: Usuario no encontrado.");
-            return ResponseEntity.notFound().build();
+        try{
+            String usuario = usuarioService.getUserDetailsByName(nombre);
+
+            if (isNull(usuario)) {
+                System.out.println("--- DEBUG: Usuario no encontrado.");
+                return ResponseEntity.notFound().build();
+            }
+
+            alumno.put("alumno", usuario);
+
+            System.out.println("--- DEBUG: Usuario encontrado: " + usuario);
+
+            return ResponseEntity.ok(alumno);
+
+        } catch (Exception e){
+            System.out.println("--- DEBUG: Ocurrió un error al buscar el usuario: " + e.getMessage());
+            alumno.put("alumno", e.getMessage());
+            return ResponseEntity.ok(alumno); // Mal hecho a proposito, que se vea la inyeccion en el front
         }
 
-        Map<String, Object> alumno = new HashMap<>();
-        alumno.put("usuario", usuario.getUsername());
-        alumno.put("rol", usuario.getRole());
-
-        System.out.println("--- DEBUG: Usuario encontrado: " + usuario.getUsername());
-
-        return ResponseEntity.ok(alumno);
     }
 
 }
