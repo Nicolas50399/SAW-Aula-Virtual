@@ -73,6 +73,8 @@ public class DataLoader implements CommandLineRunner {
         // Inscribimos al estudiante al curso (estableciendo la relación en AMBAS entidades)
         cursoProgramacion.getEstudiantes().add(estudiante1User);      // Lado del Curso
         estudiante1User.getCursosInscriptos().add(cursoProgramacion); // Lado del Usuario (ESTA ES LA LÍNEA NUEVA Y CLAVE)
+        cursoProgramacion.getEstudiantes().add(estudiante2User);
+        estudiante2User.getCursosInscriptos().add(cursoProgramacion);
 
         // Guardamos el curso (JPA se encarga de las relaciones)
         cursoRepository.save(cursoProgramacion);

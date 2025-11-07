@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder; // Y esta
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import javax.sql.DataSource;
 
@@ -55,4 +57,18 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    // Esto "relaja" el firewall de Spring Security para permitir
+    // caracteres como '/' (%2F) y ';' (%3B)
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        // ESTO ES LO QUE PERMITE EL PAYLOAD
+        firewall.setAllowUrlEncodedSlash(true);
+        firewall.setAllowUrlEncodedPercent(true);
+        firewall.setAllowSemicolon(true);
+        return firewall;
+    }
+
+
 }

