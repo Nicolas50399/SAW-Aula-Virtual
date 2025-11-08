@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/css/**", "/js/**").permitAll()
                         .requestMatchers(toH2Console()).permitAll()
+                        .requestMatchers("/internal_files/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

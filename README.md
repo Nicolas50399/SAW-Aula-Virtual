@@ -1,10 +1,11 @@
 # TP Seguridad en Aplicaciones Web - 2C2025
 
-Aplicación de aula virtual de un centro educativo (similar al campus de la UTN).
+Aplicación de aula virtual de un centro educativo.
 
 Roles que intervienen:
 * Estudiantes: Visualizan sus cursos y el material de los mismos.
 * Profesores: Cargan alumnos a cursos, junto con el material de los mismos.
+* Administradores: Gestionan usuarios y cursos.
 
 ## Vulnerailidad 1: Identification & Authentication failures
 La aplicación expone accidentalmente un endpoint de debugging sin autenticación (/actuator/env) que devuelve variables de entorno bajo el contenido de un archivo de configuración (application.properties).
@@ -12,7 +13,7 @@ La aplicación expone accidentalmente un endpoint de debugging sin autenticació
 En ese archivo aparecen, entre otros, propiedades de configuración criptográfica (algoritmo de hash, salt utilizado) y rutas/URIs a backups de usuarios de estudiantes.
 
  * http://localhost:8080/actuator/env
- * TODO: Ver URI Backup Usuarios
+ * http://localhost:8080/internal_files/students_backup.txt
 
 ## Vulnerabilidad 2: Cryptographic Failures
 Usando la información divulgada se accede (lectura) a un backup de la base de datos de usuarios y se recuperan usuarios y contraseñas hasheadas.
@@ -21,12 +22,13 @@ Habiendo obtenido anteriormente el algoritmo de hash y SALT utilizado, es posibl
 
 Finalmente, se obtiene el texto descifrado y se logra un login exitoso en el sistema.
 
-Valores obtenidos del backup:
+Valores obtenidos del properties y el backup:
 * hash = SHA-256
 * salt = "unSaltSuperSecreto123"
 * usuario: juan.perez | SHA-256(salt + pass) = d7192d9843923c34820751260af75ff744fc296f6c6d41ab1223c3738c57f6e3
 
-* comando fuerza bruta: hashcat -m 1420 -a 0 hashes.txt /ruta/a/wordlists/rockyou.txt -> pass: juan123
+* comando fuerza bruta: hashcat -m 1410 -a 0 hashes.txt /ruta/a/wordlists/rockyou.txt -> pass: juan123
+* validador de hashes: https://emn178.github.io/online-tools/sha256.html
 
 ## Vulnerailidad 3: Broken access control
 El control de visibilidad de secciones sensibles se implementa exclusivamente en el frontend (mediante JavaScript).
@@ -38,7 +40,7 @@ El usuario (no profesor) autenticado obtenido anteriormente puede modificar el c
 ## Vulnerabilidad 4: SQL Injections
 Se descubre que en los formularios ocultos no se valida/sanea la entrada, permitiendo inyecciones SQL que permiten el acceso a la BD relacional utilizada en producción.
 
-* introducir en el form oculto o cualquier otra cosa a inyectar (o meterlo en sqlmap)
+* introducir en el form oculto o cualquier otra cosa a inyectar (o meterlo en sqlmap):
 * ' or 1=1 UNION SELECT u.password AS info_combinada FROM usuario u --
 * ' or 1=1; INSERT INTO usuario (username, password, role) VALUES ('hola', 'asfsfag', 'admin') --
 
